@@ -1,27 +1,19 @@
 import os
+import asyncio
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
 TOKEN = os.getenv("BOT_TOKEN")
 
-if not TOKEN:
-    print("ERROR: BOT_TOKEN not found")
-    exit()
-
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = """🎉 Welcome to Robot!
+    await update.message.reply_text("🎉 Bot is working!")
 
-Please send your phone number starting with the country code.
-(Example: +880xxxxxxxxxxx)
+async def main():
+    app = ApplicationBuilder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
 
-/cap send to check capacity"""
+    print("Bot is running...")
+    await app.run_polling()
 
-    await update.message.reply_text(text)
-
-app = ApplicationBuilder().token(TOKEN).build()
-
-app.add_handler(CommandHandler("start", start))
-
-print("Bot is running...")
-
-app.run_polling()
+if __name__ == "__main__":
+    asyncio.run(main())
