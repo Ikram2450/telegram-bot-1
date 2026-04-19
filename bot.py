@@ -1,19 +1,14 @@
-import os
-import asyncio
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = "8202205111:AAEBuUiMyv-Ap4Fv9mhJhyQltSDhHCl3TEA"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🎉 Bot is working!")
 
-async def main():
-    app = ApplicationBuilder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
+app = ApplicationBuilder().token(TOKEN).build()
+app.add_handler(CommandHandler("start", start))
 
-    print("Bot is running...")
-    await app.run_polling()
+print("Bot is running...")
 
-if __name__ == "__main__":
-    asyncio.run(main())
+app.run_polling()
